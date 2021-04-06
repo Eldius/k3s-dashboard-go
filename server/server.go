@@ -3,78 +3,37 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/Eldius/k3s-dashboard-go/config"
 	"github.com/Eldius/k3s-dashboard-go/logger"
+	"github.com/Eldius/k3s-dashboard-go/metricsclient"
 )
 
 var (
 	log = logger.Log()
-	c   = http.Client{
-		Timeout: 2 * time.Second,
-	}
 )
 
-type CPUResponse struct {
-	Status string `json:"status"`
-	Data   Data   `json:"data"`
-}
-type Metric struct {
-}
-type Result struct {
-	Metric Metric        `json:"metric"`
-	Value  []interface{} `json:"value"`
-}
-type Data struct {
-	Resulttype string   `json:"resultType"`
-	Result     []Result `json:"result"`
-}
-
 func MetricsHandler(rw http.ResponseWriter, r *http.Request) {
-	req, err := http.NewRequest("GET", config.GetPrometheusEndpoint()+"/api/v1/query", nil)
-	if err != nil {
-		log.WithError(err).
-			Error("Failed to create metrics request")
-		rw.WriteHeader(http.StatusInternalServerError)
-		_ = json.NewEncoder(rw).Encode(&map[string]string{
-			"error":  err.Error(),
-			"status": "error",
-		})
-		return
-	}
+	result := make(map[string]interface{})
+	data := make(map[string]interface{})
 
-	req.URL.Query().Add("query", "count(kube_node_info)")
-	res, err := c.Do(req)
+	cpu, err := metricsclient.GetNodesData()
 	if err != nil {
 		log.WithError(err).
 			Error("Failed to fetch metrics")
 		rw.WriteHeader(http.StatusInternalServerError)
-		_ = json.NewEncoder(rw).Encode(&map[string]string{
-			"error":  err.Error(),
-			"status": "error",
-		})
-		return
+		result["error"] = err.Error()
+		result["status"] = "error"
+		_ = json.NewEncoder(rw).Encode(&result)
 	}
-	defer res.Body.Close()
+	data["nodes"] = cpu.Data.Result[0].Value[1]
 
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.WithError(err).
-			Error("Failed to fetch metrics")
-		rw.WriteHeader(http.StatusInternalServerError)
-		_ = json.NewEncoder(rw).Encode(&map[string]string{
-			"error":  err.Error(),
-			"status": "error",
-		})
-	}
-
+	result["data"] = data
 	rw.WriteHeader(200)
 	rw.Header().Set("content-type", "application/json")
-	_, _ = rw.Write(body)
+	_ = json.NewEncoder(rw).Encode(result)
 }
 
 func Start(port int) {
