@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 
+	"github.com/Eldius/k3s-dashboard-go/config"
 	"github.com/Eldius/k3s-dashboard-go/logger"
-	"github.com/spf13/viper"
 )
 
 var (
@@ -33,17 +34,30 @@ type Data struct {
 	Result     []Result `json:"result"`
 }
 
-func getBaseEndpoint() string {
-	return viper.GetString("metrics.server.endpoint")
-}
-
 func MetricsHandler(rw http.ResponseWriter, r *http.Request) {
-	res, err := c.Get(getBaseEndpoint() + "/api/v1/query" + "'count(kube_node_info)'")
+	req, err := http.NewRequest("GET", config.GetPrometheusEndpoint()+"/api/v1/query", nil)
+	if err != nil {
+		log.WithError(err).
+			Error("Failed to create metrics request")
+		rw.WriteHeader(http.StatusInternalServerError)
+		_ = json.NewEncoder(rw).Encode(&map[string]string{
+			"error":  err.Error(),
+			"status": "error",
+		})
+		return
+	}
+
+	req.URL.Query().Add("query", "count(kube_node_info)")
+	res, err := c.Do(req)
 	if err != nil {
 		log.WithError(err).
 			Error("Failed to fetch metrics")
 		rw.WriteHeader(http.StatusInternalServerError)
-		_ = json.NewEncoder(rw).Encode(err)
+		_ = json.NewEncoder(rw).Encode(&map[string]string{
+			"error":  err.Error(),
+			"status": "error",
+		})
+		return
 	}
 	defer res.Body.Close()
 
@@ -52,7 +66,10 @@ func MetricsHandler(rw http.ResponseWriter, r *http.Request) {
 		log.WithError(err).
 			Error("Failed to fetch metrics")
 		rw.WriteHeader(http.StatusInternalServerError)
-		_ = json.NewEncoder(rw).Encode(err)
+		_ = json.NewEncoder(rw).Encode(&map[string]string{
+			"error":  err.Error(),
+			"status": "error",
+		})
 	}
 
 	rw.WriteHeader(200)
@@ -67,6 +84,9 @@ func Start(port int) {
 	mux.Handle("/", fs)
 
 	mux.HandleFunc("/metrics", MetricsHandler)
+
+	log.Infof("prometheus endpoint: %s", config.GetPrometheusEndpoint())
+	log.Infof("DASHBOARD_PROMETHEUS_ENDPOINT: %s", os.Getenv("DASHBOARD_PROMETHEUS_ENDPOINT"))
 
 	host := fmt.Sprintf(":%d", port)
 
