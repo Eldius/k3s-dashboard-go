@@ -65,7 +65,7 @@ func GetMetrics() map[string]interface{} {
 		}
 	}
 	log.WithField("nodes", nodes).Info("nodes")
-	metrics["nodes"] = nodes.Data.Result[0].Value[0]
+	metrics["nodes"] = nodes.Data.Result[0].Value[1]
 
 	cpu, err := GetCpuData()
 	if err != nil {
@@ -75,7 +75,7 @@ func GetMetrics() map[string]interface{} {
 		}
 	}
 	log.WithField("cpu", cpu).Info("cpu")
-	metrics["cpu"] = cpu.Data.Result[0].Value[0]
+	metrics["cpu"] = cpu.Data.Result[0].Value[1]
 
 	memory, err := GetMemoryData()
 	if err != nil {
@@ -85,7 +85,7 @@ func GetMetrics() map[string]interface{} {
 		}
 	}
 	log.WithField("memory", memory).Info("memory")
-	metrics["memory"] = memory.Data.Result[0].Value[0]
+	metrics["memory"] = memory.Data.Result[0].Value[1]
 
 	podCount, err := GetPodCountData()
 	if err != nil {
@@ -95,7 +95,7 @@ func GetMetrics() map[string]interface{} {
 		}
 	}
 	log.WithField("podCount", podCount).Info("podCount")
-	metrics["pod_count"] = podCount.Data.Result[0].Value[0]
+	metrics["pod_count"] = podCount.Data.Result[0].Value[1]
 
 	containerCount, err := GetContainerCountData()
 	if err != nil {
@@ -105,7 +105,7 @@ func GetMetrics() map[string]interface{} {
 		}
 	}
 	log.WithField("containerCount", containerCount).Info("containerCount")
-	metrics["container_count"] = containerCount.Data.Result[0].Value[0]
+	metrics["container_count"] = containerCount.Data.Result[0].Value[1]
 
 	//buildInfo, err := GetBuildinfoData()
 	//if err != nil {
@@ -115,7 +115,7 @@ func GetMetrics() map[string]interface{} {
 	//	}
 	//}
 	//log.WithField("buildInfo", buildInfo).Info("buildInfo")
-	//metrics["build_info"] = buildInfo.Data.Result[0].Value[0]
+	//metrics["build_info"] = buildInfo.Data.Result[0].Value[1]
 
 	return metrics
 }
