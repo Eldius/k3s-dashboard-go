@@ -1,0 +1,56 @@
+{
+    "status": "success",
+    "data": {
+        "resultType": "vector",
+        "result": [
+            {
+                "metric": {
+                    "__name__": "kubernetes_build_info",
+                    "build_date": "2021-03-31T06:20:03Z",
+                    "compiler": "gc",
+                    "endpoint": "https",
+                    "git_commit": "355fff3017b06cde44dbd879408a3a6826fa7125",
+                    "git_tree_state": "clean",
+                    "git_version": "v1.20.5+k3s1",
+                    "go_version": "go1.15.10",
+                    "instance": "192.168.100.195:6443",
+                    "job": "apiserver",
+                    "major": "1",
+                    "minor": "20",
+                    "namespace": "default",
+                    "platform": "linux/arm64",
+                    "service": "kubernetes"
+                },
+                "value": [
+                    1618089594.842,
+                    "1"
+                ]
+            },
+            {
+                "metric": {
+                    "__name__": "kubernetes_build_info",
+                    "build_date": "2021-03-31T06:20:03Z",
+                    "compiler": "gc",
+                    "endpoint": "https-metrics",
+                    "git_commit": "355fff3017b06cde44dbd879408a3a6826fa7125",
+                    "git_tree_state": "clean",
+                    "git_version": "v1.20.5+k3s1",
+                    "go_version": "go1.15.10",
+                    "instance": "192.168.100.195:10250",
+                    "job": "kubelet",
+                    "major": "1",
+                    "metrics_path": "/metrics",
+                    "minor": "20",
+                    "namespace": "kube-system",
+                    "node": "raspberrypi",
+                    "platform": "linux/arm64",
+                    "service": "prometheus-kube-prometheus-kubelet"
+                },
+                "value": [
+                    1618089594.842,
+                    "1"
+                ]
+            }
+        ]
+    }
+}

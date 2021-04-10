@@ -8,6 +8,7 @@ import (
 
 	"github.com/Eldius/k3s-dashboard-go/config"
 	"github.com/Eldius/k3s-dashboard-go/logger"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -17,29 +18,40 @@ var (
 	}
 )
 
+const (
+	nodesQuery     = "count(kube_node_info)"
+	cpuQuery       = `(1-avg(rate(node_cpu_seconds_total{mode="idle", cluster=""}[5m])))*100`
+	memoryQuery    = `(1 - sum(:node_memory_MemAvailable_bytes:sum{cluster=""}) / sum(kube_node_status_allocatable_memory_bytes{cluster=""}))*100`
+	podQuery       = `sum(kubelet_running_pods{cluster="", job="kubelet", metrics_path="/metrics"})`
+	containerQuery = `sum(kubelet_running_containers{cluster="", job="kubelet", metrics_path="/metrics"})`
+	buildQuery     = `kubernetes_build_info`
+)
+
 func GetNodesData() (*QueryResponse, error) {
-	return queryMetric("count(kube_node_info)")
+	return queryMetric(nodesQuery)
 }
 
 func GetCpuData() (nodes *QueryResponse, err error) {
-	return queryMetric(`(1-avg(rate(node_cpu_seconds_total{mode="idle", cluster=""}[5m])))*100`)
+	return queryMetric(cpuQuery)
 }
 
 func GetMemoryData() (*QueryResponse, error) {
-	return queryMetric(`(1 - sum(:node_memory_MemAvailable_bytes:sum{cluster=""}) / sum(kube_node_status_allocatable_memory_bytes{cluster=""}))*100`)
+	return queryMetric(memoryQuery)
 }
 
 func GetPodCountData() (*QueryResponse, error) {
-	return queryMetric(`sum(kubelet_running_pods{cluster="", job="kubelet", metrics_path="/metrics", instance=~"(10.0.0.70:10250|10.0.0.71:10250|10.0.0.72:10250)"})`)
+	return queryMetric(podQuery)
 }
 
 func GetContainerCountData() (*QueryResponse, error) {
-	return queryMetric(`sum(kubelet_running_containers{cluster="", job="kubelet", metrics_path="/metrics", instance=~"(10.0.0.70:10250|10.0.0.71:10250|10.0.0.72:10250)"})`)
+	return queryMetric(containerQuery)
 }
 
+/*
 func GetBuildinfoData() (*QueryResponse, error) {
-	return queryMetric(`kubernetes_build_info`)
+	return queryMetric(buildQuery)
 }
+*/
 
 func GetMetrics() map[string]interface{} {
 	metrics := map[string]interface{}{
@@ -52,6 +64,7 @@ func GetMetrics() map[string]interface{} {
 			"status": "error",
 		}
 	}
+	log.WithField("nodes", nodes).Info("nodes")
 	metrics["nodes"] = nodes.Data.Result[0].Value[0]
 
 	cpu, err := GetCpuData()
@@ -61,6 +74,7 @@ func GetMetrics() map[string]interface{} {
 			"status": "error",
 		}
 	}
+	log.WithField("cpu", cpu).Info("cpu")
 	metrics["cpu"] = cpu.Data.Result[0].Value[0]
 
 	memory, err := GetMemoryData()
@@ -70,34 +84,38 @@ func GetMetrics() map[string]interface{} {
 			"status": "error",
 		}
 	}
+	log.WithField("memory", memory).Info("memory")
 	metrics["memory"] = memory.Data.Result[0].Value[0]
 
-	podCount, err := GetMemoryData()
+	podCount, err := GetPodCountData()
 	if err != nil {
 		return map[string]interface{}{
 			"error":  err.Error(),
 			"status": "error",
 		}
 	}
+	log.WithField("podCount", podCount).Info("podCount")
 	metrics["pod_count"] = podCount.Data.Result[0].Value[0]
 
-	containerCount, err := GetMemoryData()
+	containerCount, err := GetContainerCountData()
 	if err != nil {
 		return map[string]interface{}{
 			"error":  err.Error(),
 			"status": "error",
 		}
 	}
+	log.WithField("containerCount", containerCount).Info("containerCount")
 	metrics["container_count"] = containerCount.Data.Result[0].Value[0]
 
-	buildInfo, err := GetMemoryData()
-	if err != nil {
-		return map[string]interface{}{
-			"error":  err.Error(),
-			"status": "error",
-		}
-	}
-	metrics["build_info"] = buildInfo.Data.Result[0].Value[0]
+	//buildInfo, err := GetBuildinfoData()
+	//if err != nil {
+	//	return map[string]interface{}{
+	//		"error":  err.Error(),
+	//		"status": "error",
+	//	}
+	//}
+	//log.WithField("buildInfo", buildInfo).Info("buildInfo")
+	//metrics["build_info"] = buildInfo.Data.Result[0].Value[0]
 
 	return metrics
 }
@@ -113,8 +131,15 @@ func queryMetric(query string) (nodes *QueryResponse, err error) {
 			Error("Failed to create metrics request")
 		return
 	}
+	q := req.URL.Query()
+	q.Set("query", query)
+	req.URL.RawQuery = q.Encode()
 
-	req.URL.Query().Add("query", query)
+	log.WithFields(logrus.Fields{
+		"query": req.URL.Query().Encode(),
+		"url":   req.URL.String(),
+	}).Info("test")
+
 	res, err := c.Do(req)
 	if err != nil {
 		log.WithError(err).
