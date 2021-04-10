@@ -4,3 +4,20 @@
 
 - [Prometheus - HTTP API](https://prometheus.io/docs/prometheus/latest/querying/api/)
 - [Tutorial: Build a Prometheus Dashboard for K3s with Wio Terminal](https://thenewstack.io/tutorial-build-a-prometheus-dashboard-for-k3s-with-wio-terminal/)
+
+## commands to test requests ##
+
+```shell
+kubectl run -i --tty alpine --image=alpine --restart=Never -- sh
+```
+
+```shell
+# nodes:           count(kube_node_info)
+# cpu:             (1-avg(rate(node_cpu_seconds_total{mode="idle", cluster=""}[5m])))*100
+# memory:          (1 - sum(:node_memory_MemAvailable_bytes:sum{cluster=""}) / sum(kube_node_status_allocatable_memory_bytes{cluster=""}))*100
+# pod count:       sum(kubelet_running_pods{cluster="", job="kubelet", metrics_path="/metrics", instance=~"(10.0.0.70:10250|10.0.0.71:10250|10.0.0.72:10250)"})
+# container count: sum(kubelet_running_containers{cluster="", job="kubelet", metrics_path="/metrics", instance=~"(10.0.0.70:10250|10.0.0.71:10250|10.0.0.72:10250)"})
+# build info:      kubernetes_build_info
+
+curl 'http://prometheus-kube-prometheus-prometheus.prometheus.svc.cluster.local:9090/api/v1/query?query=<metric-query-urlencoded>'
+```
