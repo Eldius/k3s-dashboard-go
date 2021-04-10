@@ -12,9 +12,9 @@ test: clean
 
 dockerbuild:
 	docker build \
-		-t eldius/mock-server-go \
+		-t eldius/k3s-dashboard-go \
 		.
-	docker tag eldius/mock-server-go eldius/mock-server-go:$(shell git rev-parse --short HEAD)
+	docker tag eldius/k3s-dashboard-go eldius/k3s-dashboard-go:$(shell git rev-parse --short HEAD)
 
 dockerrun: dockerbuild
-	docker run -it --rm --name mocky -p 8080:8080 -p 8081:8081 eldius/mock-server-go:latest
+	docker run -it --rm --name mocky -p 8080:8080 -p 8081:8081 eldius/k3s-dashboard-go:latest
