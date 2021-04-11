@@ -1,5 +1,9 @@
 package metricsclient
 
+import (
+	"strconv"
+)
+
 const (
 	StatusSuccess = "success"
 	StatusError   = "error"
@@ -25,6 +29,20 @@ type Data struct {
 
 func (q *QueryResponse) IsSuccess() bool {
 	return StatusSuccess == q.Status
+}
+
+func (q *QueryResponse) GetValueAsInt() int {
+	v, _ := strconv.Atoi(q.Data.Result[0].Value[1].(string))
+	return v
+}
+
+func (q *QueryResponse) GetValueAsString() string {
+	return q.Data.Result[0].Value[1].(string)
+}
+
+func (q *QueryResponse) GetValueAsFloat() float64 {
+	v, _ := strconv.ParseFloat(q.Data.Result[0].Value[1].(string), 64)
+	return v
 }
 
 type SummaryData struct {

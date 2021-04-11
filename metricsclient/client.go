@@ -67,7 +67,13 @@ func GetSummary() *SummaryResponse {
 		}
 	}
 	log.WithField("nodes", nodes).Info("nodes")
-	metrics.Data.Nodes = nodes.Data.Result[0].Value[1].(int)
+	if err != nil {
+		return &SummaryResponse{
+			Error:  err.Error(),
+			Status: StatusError,
+		}
+	}
+	metrics.Data.Nodes = nodes.GetValueAsInt()
 
 	cpu, err := GetCpuData()
 	if err != nil {
@@ -77,7 +83,7 @@ func GetSummary() *SummaryResponse {
 		}
 	}
 	log.WithField("cpu", cpu).Info("cpu")
-	metrics.Data.CPU = cpu.Data.Result[0].Value[1].(float64)
+	metrics.Data.CPU = cpu.GetValueAsFloat()
 
 	memory, err := GetMemoryData()
 	if err != nil {
@@ -87,7 +93,7 @@ func GetSummary() *SummaryResponse {
 		}
 	}
 	log.WithField("memory", memory).Info("memory")
-	metrics.Data.Memory = memory.Data.Result[0].Value[1].(float64)
+	metrics.Data.Memory = memory.GetValueAsFloat()
 
 	podCount, err := GetPodCountData()
 	if err != nil {
@@ -97,7 +103,7 @@ func GetSummary() *SummaryResponse {
 		}
 	}
 	log.WithField("podCount", podCount).Info("podCount")
-	metrics.Data.Pods = podCount.Data.Result[0].Value[1].(int)
+	metrics.Data.Pods = podCount.GetValueAsInt()
 
 	containerCount, err := GetContainerCountData()
 	if err != nil {
@@ -107,7 +113,7 @@ func GetSummary() *SummaryResponse {
 		}
 	}
 	log.WithField("containerCount", containerCount).Info("containerCount")
-	metrics.Data.Containers = containerCount.Data.Result[0].Value[1].(int)
+	metrics.Data.Containers = containerCount.GetValueAsInt()
 
 	return metrics
 }

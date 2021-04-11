@@ -30,6 +30,9 @@ func TestGetNodesData(t *testing.T) {
 	if d.Data.Result[0].Value[1] != "1" {
 		t.Errorf("Must return result '1': '%s'", d.Data.Result[0].Value[1])
 	}
+	if d.GetValueAsInt() != 1 {
+		t.Errorf("Must return result '1': '%d'", d.GetValueAsInt())
+	}
 }
 
 func TestGetCpuData(t *testing.T) {
@@ -49,6 +52,9 @@ func TestGetCpuData(t *testing.T) {
 	}
 	if d.Data.Result[0].Value[1] != "13.332407407407466" {
 		t.Errorf("Must return result '13.332407407407466': '%s'", d.Data.Result[0].Value[1])
+	}
+	if d.GetValueAsFloat() != 13.332407407407466 {
+		t.Errorf("Must return result '13.332407407407466': '%f'", d.GetValueAsFloat())
 	}
 }
 
@@ -70,6 +76,9 @@ func TestGetMemoryData(t *testing.T) {
 	if d.Data.Result[0].Value[1] != "17.731588183240767" {
 		t.Errorf("Must return result '17.731588183240767': '%s'", d.Data.Result[0].Value[1])
 	}
+	if d.GetValueAsFloat() != 17.731588183240767 {
+		t.Errorf("Must return result '17.731588183240767': '%f'", d.GetValueAsFloat())
+	}
 }
 
 func TestGetPodCountData(t *testing.T) {
@@ -89,6 +98,9 @@ func TestGetPodCountData(t *testing.T) {
 	}
 	if d.Data.Result[0].Value[1] != "16" {
 		t.Errorf("Must return result '16': '%s'", d.Data.Result[0].Value[1])
+	}
+	if d.GetValueAsInt() != 16 {
+		t.Errorf("Must return result '16': '%d'", d.GetValueAsInt())
 	}
 }
 
