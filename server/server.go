@@ -16,14 +16,25 @@ var (
 )
 
 func MetricsHandler(rw http.ResponseWriter, r *http.Request) {
-	metrics := metricsclient.GetMetrics()
+	summary := metricsclient.GetSummary()
 	rw.WriteHeader(200)
 	rw.Header().Set("content-type", "application/json")
-	_ = json.NewEncoder(rw).Encode(metrics)
+	_ = json.NewEncoder(rw).Encode(summary)
 }
 
 func QueryHandler(rw http.ResponseWriter, r *http.Request) {
-
+	query := r.URL.Query().Get("query")
+	qr, err := metricsclient.QueryMetric(query)
+	if err != nil {
+		rw.WriteHeader(500)
+		_ = json.NewEncoder(rw).Encode(&map[string]string{
+			"status": metricsclient.StatusError,
+			"error":  err.Error(),
+		})
+		return
+	}
+	rw.WriteHeader(200)
+	_ = json.NewEncoder(rw).Encode(qr)
 }
 
 func Start(port int) {
@@ -32,7 +43,7 @@ func Start(port int) {
 	fs := http.FileServer(http.Dir("./static"))
 	mux.Handle("/", fs)
 
-	mux.HandleFunc("/sumary", MetricsHandler)
+	mux.HandleFunc("/summary", MetricsHandler)
 	mux.HandleFunc("/query", QueryHandler)
 	host := fmt.Sprintf(":%d", port)
 

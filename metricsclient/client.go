@@ -28,28 +28,28 @@ const (
 )
 
 func GetNodesData() (*QueryResponse, error) {
-	return queryMetric(nodesQuery)
+	return QueryMetric(nodesQuery)
 }
 
 func GetCpuData() (nodes *QueryResponse, err error) {
-	return queryMetric(cpuQuery)
+	return QueryMetric(cpuQuery)
 }
 
 func GetMemoryData() (*QueryResponse, error) {
-	return queryMetric(memoryQuery)
+	return QueryMetric(memoryQuery)
 }
 
 func GetPodCountData() (*QueryResponse, error) {
-	return queryMetric(podQuery)
+	return QueryMetric(podQuery)
 }
 
 func GetContainerCountData() (*QueryResponse, error) {
-	return queryMetric(containerQuery)
+	return QueryMetric(containerQuery)
 }
 
 /*
 func GetBuildinfoData() (*QueryResponse, error) {
-	return queryMetric(buildQuery)
+	return QueryMetric(buildQuery)
 }
 */
 
@@ -116,7 +116,7 @@ func getQueryEndpoint() string {
 	return fmt.Sprintf("%s/api/v1/query", config.GetPrometheusEndpoint())
 }
 
-func queryMetric(query string) (nodes *QueryResponse, err error) {
+func QueryMetric(query string) (nodes *QueryResponse, err error) {
 	req, err := http.NewRequest("GET", getQueryEndpoint(), nil)
 	if err != nil {
 		log.WithError(err).
