@@ -22,13 +22,18 @@ func MetricsHandler(rw http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(rw).Encode(metrics)
 }
 
+func QueryHandler(rw http.ResponseWriter, r *http.Request) {
+
+}
+
 func Start(port int) {
 	mux := http.NewServeMux()
 
 	fs := http.FileServer(http.Dir("./static"))
 	mux.Handle("/", fs)
 
-	mux.HandleFunc("/metrics", MetricsHandler)
+	mux.HandleFunc("/sumary", MetricsHandler)
+	mux.HandleFunc("/query", QueryHandler)
 	host := fmt.Sprintf(":%d", port)
 
 	log.WithFields(logrus.Fields{

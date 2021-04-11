@@ -26,3 +26,17 @@ type Data struct {
 func (q *QueryResponse) IsSuccess() bool {
 	return StatusSuccess == q.Status
 }
+
+type SummaryData struct {
+	Nodes      int     `json:"nodes"`
+	CPU        float64 `json:"cpu"`
+	Memory     float64 `json:"memory"`
+	Pods       int     `json:"pods"`
+	Containers int     `json:"containers"`
+}
+
+type SummaryResponse struct {
+	Status string      `json:"status"`
+	Error  string      `json:"error"`
+	Data   SummaryData `json:"data"`
+}
