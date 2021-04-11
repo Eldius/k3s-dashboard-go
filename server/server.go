@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Eldius/cors-interceptor-go/cors"
 	"github.com/Eldius/k3s-dashboard-go/config"
 	"github.com/Eldius/k3s-dashboard-go/logger"
 	"github.com/Eldius/k3s-dashboard-go/metricsclient"
@@ -52,5 +53,5 @@ func Start(port int) {
 		"listeningAt":         host,
 	}).Infof("Stating server")
 
-	log.WithError(http.ListenAndServe(host, mux)).Error("Failed to start HTTP server")
+	log.WithError(http.ListenAndServe(host, cors.CORS(mux))).Error("Failed to start HTTP server")
 }
