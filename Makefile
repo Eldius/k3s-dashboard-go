@@ -18,6 +18,14 @@ dockerbuild:
 		--tag eldius/k3s-dashboard-go:$(shell git rev-parse --short HEAD) \
 		.
 
+testdockerbuild:
+	docker buildx build \
+		--push \
+		--platform linux/arm/v7 \
+		--tag eldius/k3s-dashboard-go:latest \
+		--tag eldius/k3s-dashboard-go:$(shell git rev-parse --short HEAD) \
+		.
+
 dockerrun: dockerbuild
 	docker run -it --rm --name mocky -p 8080:8080 -p 8081:8081 eldius/k3s-dashboard-go:latest
 

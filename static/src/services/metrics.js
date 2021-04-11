@@ -1,6 +1,8 @@
 
+var apiEndpoint = "http://dashboard-svc.default.svc.cluster.local:8080";
+
 export function getMetrics() {
-  return fetch("http://192.168.100.195/dashboard/summary")
+  return fetch(apiEndpoint)
     .then(response => response.json())
     .then(response => response.data);
 }
