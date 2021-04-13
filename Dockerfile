@@ -5,16 +5,7 @@ FROM node:lts as nodebuilder
 
 WORKDIR /app
 COPY ./static /app
-#ENV PATH /app/node_modules/.bin:$PATH
-#RUN apk add --no-cache python3 make g++
 
-#COPY static/package.json .
-#RUN npm install
-#RUN npm run build
-
-#RUN npm install
-#RUN yarn
-#RUN yarn set version berry
 RUN yarn install
 RUN yarn build
 
