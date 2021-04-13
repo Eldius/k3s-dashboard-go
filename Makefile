@@ -20,7 +20,7 @@ dockerbuild:
 
 testdockerbuild:
 	docker buildx build \
-		--platform linux/arm/v7 \
+		--platform linux/arm64/v8 \
 		--tag eldius/k3s-dashboard-go:latest \
 		--tag eldius/k3s-dashboard-go:$(shell git rev-parse --short HEAD) \
 		.
