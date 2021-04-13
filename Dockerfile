@@ -1,11 +1,20 @@
-FROM node:14.16.1-alpine3.13 as nodebuilder
+FROM node:lts as nodebuilder
+#FROM node:14.16.1-alpine3.13 as nodebuilder
+#FROM node:lts-buster as nodebuilder
 #FROM node:14.16.1-buster-slim as nodebuilder
 
 WORKDIR /app
 COPY ./static /app
+#ENV PATH /app/node_modules/.bin:$PATH
+#RUN apk add --no-cache python3 make g++
+
+#COPY static/package.json .
+#RUN npm install
+#RUN npm run build
 
 #RUN npm install
-RUN apk add --no-cache git make build-base
+#RUN yarn
+#RUN yarn set version berry
 RUN yarn install
 RUN yarn build
 
