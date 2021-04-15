@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { getSummary } from '../../services/metrics';
 
+import NumberFormat from 'react-number-format';
+
 export default function Metrics() {
   const [metrics, setMetrics] = useState({});
 
@@ -42,7 +44,16 @@ export default function Metrics() {
             <h2>CPU Usage (%)</h2>
           </header>
           <div className="metricValue">
-            <p>{metrics.cpu.toFixed(4)} %</p>
+            <p>
+              <NumberFormat 
+                value={metrics.cpu}
+                className="metricValueFloat"
+                displayType={'text'} 
+                thousandSeparator={true}
+                decimalScale={4}
+                fixedDecimalScale={true}
+                suffix={'%'} />
+            </p>
           </div>
         </div>
         <div>
@@ -50,7 +61,16 @@ export default function Metrics() {
             <h2>Memory Usage (%)</h2>
           </header>
           <div className="metricValue">
-            <p>{metrics.memory.toFixed(4)} %</p>
+            <p>
+              <NumberFormat 
+                value={metrics.memory}
+                className="metricValueFloat"
+                displayType={'text'} 
+                thousandSeparator={true}
+                decimalScale={4}
+                fixedDecimalScale={true}
+                suffix={'%'} />
+            </p>
           </div>
         </div>
     </div>
