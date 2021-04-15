@@ -6,12 +6,12 @@ export default function Metrics() {
   const [metrics, setMetrics] = useState({});
 
   useEffect(() => {
-    getMetrics()
+    getSummary()
       .then(d => {
         setMetrics(d)
       });
     const id = setInterval(() => {
-      getMetrics()
+      getSummary()
       .then(d => {
         setMetrics(d)
       });

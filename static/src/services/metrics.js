@@ -1,7 +1,7 @@
 
-var apiEndpoint = "http://dashboard-svc.default.svc.cluster.local:8080";
+var apiEndpoint = "./summary";
 
-export function getMetrics() {
+export function getSummary() {
   return fetch(apiEndpoint)
     .then(response => response.json())
     .then(response => response.data);
