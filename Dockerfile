@@ -6,6 +6,8 @@ FROM node:lts as nodebuilder
 WORKDIR /app
 COPY ./static /app
 
+ENV REACT_APP_SUMMARY_ENDPOINT="./summary"
+
 RUN yarn install
 RUN yarn build
 

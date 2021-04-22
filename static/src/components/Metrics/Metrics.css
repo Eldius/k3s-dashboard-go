@@ -1,0 +1,21 @@
+.metricValue {
+    font: italic bold;
+    color: blue;
+}
+
+div.metricsBoard {
+    width: 540px;
+}
+
+.metricCard {
+    float: left;
+    border-radius: 15px;
+    margin: 5px;
+    border-width: 2px;
+    border-color: white;
+    background-color: darkgray;
+    color: darkgreen;
+    padding: 5px;
+    width: 250px;
+    text-align: justify;
+}

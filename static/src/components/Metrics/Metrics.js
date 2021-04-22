@@ -4,6 +4,8 @@ import { getSummary } from '../../services/metrics';
 
 import NumberFormat from 'react-number-format';
 
+import "./Metrics.css"
+
 export default function Metrics() {
   const [metrics, setMetrics] = useState({});
 
@@ -23,7 +25,7 @@ export default function Metrics() {
 
   return(
     <div className="metricsBoard">
-        <div>
+        <div className="metricCard">
           <header>
             <h2>Nodes</h2>
           </header>
@@ -31,7 +33,7 @@ export default function Metrics() {
             <p>{metrics.nodes}</p>
           </div>
         </div>
-        <div>
+        <div className="metricCard">
           <header>
             <h2>Pods</h2>
           </header>
@@ -39,7 +41,7 @@ export default function Metrics() {
             <p>{metrics.pods}</p>
           </div>
         </div>
-        <div>
+        <div className="metricCard">
           <header>
             <h2>CPU Usage (%)</h2>
           </header>
@@ -56,7 +58,7 @@ export default function Metrics() {
             </p>
           </div>
         </div>
-        <div>
+        <div className="metricCard">
           <header>
             <h2>Memory Usage (%)</h2>
           </header>
