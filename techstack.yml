@@ -1,0 +1,242 @@
+repo_name: Eldius/k3s-dashboard-go
+report_id: 57cf7bed8134bbda3bacdc9aba6cf442
+version: 0.1
+repo_type: Public
+timestamp: '2024-05-31T20:40:56+00:00'
+requested_by: Eldius
+provider: github
+branch: main
+detected_tools_count: 18
+tools:
+- name: CSS 3
+  description: The latest evolution of the Cascading Style Sheets language
+  website_url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go
+  detection_source: Repo Metadata
+- name: Golang
+  description: An open source programming language that makes it easy to build simple,
+    reliable, and efficient software
+  website_url: http://golang.org/
+  license: BSD-3-Clause
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1005/O6AczwfV_400x400.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go
+  detection_source: Repo Metadata
+- name: JavaScript
+  description: Lightweight, interpreted, object-oriented language with first-class
+    functions
+  website_url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go
+  detection_source: Repo Metadata
+- name: Node.js
+  description: A platform built on Chrome's JavaScript runtime for easily building
+    fast, scalable network applications
+  website_url: http://nodejs.org/
+  version: 14.16.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/Dockerfile
+  detection_source: Dockerfile
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-10 18:30:25.000000000 Z
+- name: React
+  description: A JavaScript library for building user interfaces
+  website_url: https://reactjs.org/
+  version: 17.0.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript UI Libraries
+  image_url: https://img.stackshare.io/service/1020/OYIaJ1KK.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/static/yarn.lock
+  detection_source: static/package.json
+  last_updated_by: eldius
+  last_updated_on: 2021-04-15 23:57:39.000000000 Z
+- name: Docker
+  description: Enterprise Container Platform for High-Velocity Innovation.
+  website_url: https://www.docker.com/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Virtual Machine Platforms & Containers
+  image_url: https://img.stackshare.io/service/586/n4u37v9t_400x400.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go
+  detection_source: Repo Metadata
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go
+  detection_source: Repo Metadata
+- name: Yarn
+  description: A new package manager for JavaScript
+  website_url: https://yarnpkg.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Front End Package Manager
+  image_url: https://img.stackshare.io/service/5848/44mC-kJ3.jpg
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/static/yarn.lock
+  detection_source: static/yarn.lock
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-11 20:21:48.000000000 Z
+- name: npm
+  description: The package manager for JavaScript.
+  website_url: https://www.npmjs.com/
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Front End Package Manager
+  image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/static/package.json
+  detection_source: static/package.json
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-11 20:21:48.000000000 Z
+- name: cobra
+  description: A Commander for modern Go CLI interactions
+  package_url: https://pkg.go.dev/github.com/spf13/cobra
+  version: 1.1.3
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Go Modules Packages
+  image_url: https://img.stackshare.io/package/go-packages/image.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/go.sum
+  detection_source: go.mod
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-06 00:25:22.000000000 Z
+- name: go-homedir
+  description: Go library for detecting and expanding the user's home directory without
+    cgo
+  package_url: https://pkg.go.dev/github.com/mitchellh/go-homedir
+  version: 1.0.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Go Modules Packages
+  image_url: https://img.stackshare.io/package/go-packages/image.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/go.sum
+  detection_source: go.mod
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-06 00:25:22.000000000 Z
+- name: gock.v1
+  package_url: https://pkg.go.dev/gopkg.in/h2non/gock.v1
+  version: 1.0.16
+  open_source: false
+  hosted_saas: false
+  category: Libraries
+  sub_category: Go Modules Packages
+  image_url: https://img.stackshare.io/package/go-packages/image.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/go.sum
+  detection_source: go.mod
+  last_updated_by: Eldio Santos
+  last_updated_on: 2021-04-06 22:44:33.000000000 Z
+- name: logrus
+  description: Structured, pluggable logging for Go
+  package_url: https://pkg.go.dev/github.com/sirupsen/logrus
+  version: 1.2.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Go Modules Packages
+  image_url: https://img.stackshare.io/package/go-packages/image.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/go.sum
+  detection_source: go.mod
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-06 00:25:22.000000000 Z
+- name: viper
+  description: Go configuration with fangs
+  package_url: https://pkg.go.dev/github.com/spf13/viper
+  version: 1.7.0
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Go Modules Packages
+  image_url: https://img.stackshare.io/package/go-packages/image.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/go.sum
+  detection_source: go.mod
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-06 00:25:22.000000000 Z
+- name: "@testing-library/jest-dom"
+  description: Custom jest matchers to test the state of the DOM
+  package_url: https://www.npmjs.com/@testing-library/jest-dom
+  version: 5.11.10
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/17424/default_1cdcda15ebb7caed879f8340bc212b44c4ec9dac.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/static/yarn.lock
+  detection_source: static/package.json
+  last_updated_by: Eldius
+  last_updated_on: 2021-04-11 20:21:48.000000000 Z
+- name: "@testing-library/react"
+  description: Simple and complete React DOM testing utilities that encourage good
+    testing practices
+  package_url: https://www.npmjs.com/@testing-library/react
+  version: 11.2.6
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16549/default_d522554c6a41cb28d922d6d3ad32ad4afa0e3bb5.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/static/yarn.lock
+  detection_source: static/package.json
+  last_updated_by: eldius
+  last_updated_on: 2021-04-15 23:57:39.000000000 Z
+- name: react-dom
+  description: React package for working with the DOM
+  package_url: https://www.npmjs.com/react-dom
+  version: 17.0.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15808/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/static/yarn.lock
+  detection_source: static/package.json
+  last_updated_by: eldius
+  last_updated_on: 2021-04-15 23:57:39.000000000 Z
+- name: react-scripts
+  description: Configuration and scripts for Create React App
+  package_url: https://www.npmjs.com/react-scripts
+  version: 4.0.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/15985/default_8b5680d4e916298d08363c291a0d6e34c07ceb15.png
+  detection_source_url: https://github.com/Eldius/k3s-dashboard-go/blob/main/static/yarn.lock
+  detection_source: static/package.json
+  last_updated_by: eldius
+  last_updated_on: 2021-04-15 23:57:39.000000000 Z
